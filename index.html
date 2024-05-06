@@ -4,32 +4,26 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Login</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
 </head>
 <body>
     <div class="loginContainer">
         <div class="logo">
-            <img src="LOGO BERNAS 2.png">
+            <img src="LOGO BERNAS 2.png" alt="Logo Bernas">
         </div>
         <div class="form">
             <div class="group">
                 <h1>Login</h1>
-                <span style="color: blue;">
-               
-                    SMAN BERNAS Provinsi Riau
-                    JL. Abdul Jalil Pangkalan Kerinci
-                </span>
+                <span style="color: blue;">SMAN BERNAS Provinsi Riau JL. Abdul Jalil Pangkalan Kerinci</span>
             </div>
-            
-           
             <div class="group">
                 <i class="fa-solid fa-lock"></i>
                 <input type="password" placeholder=" " id="password" autocomplete="off">
                 <i class="fa-regular fa-eye" onclick="changeTypePassword()"></i>
                 <i class="fa-regular fa-eye-slash" onclick="changeTypePassword()"></i>
-                <label for="password">NISN...</label>
+                <label for="password">Password...</label>
             </div>
             <div class="loginBtn">
                 <button onclick="login()">Login <i class="fa-solid fa-arrow-right"></i></button>
@@ -37,10 +31,10 @@
         </div>
     </div>
     <script>
-        // XII MIPA.1
-var users = {
-    "admin": ["password1", "password2", "password3"],
-    "X.1": ["0061431674"],
+        var users = {
+            "XII_MIPA_1": {
+                "admin": ["password1", "password2", "password3"],
+                "X.1": ["0061431674"],
     "X.2": ["0051824067"],
     "X.3": ["0053892966"],
     "X.4": ["0069284139"],
@@ -72,9 +66,11 @@ var users = {
     "X.30": ["0044369104"],
     "X.31": ["0064416691"],
     "X.32": ["0063174051"],
-
-// XII MIPA.2//
-    "X.1": ["0067223504"],
+                // Daftar siswa XII MIPA.1 lainnya...
+            },
+            "XII_MIPA_2": {
+                "admin": ["password1", "password2", "password3"],
+                "X.1": ["0067223504"],
     "X.2": ["0065490015"],
     "X.3": ["0053940519"],
     "X.4": ["0051541712"],
@@ -105,10 +101,11 @@ var users = {
     "X.29": ["3068064396"],
     "X.30": ["0043267545"],
     "X.31": ["0067359296"],
+                // Daftar siswa XII MIPA.2 lainnya...
+            },
 
-
-
-// XII MIPA.3//
+     "XII_MIPA_3": {
+    "admin": ["password1", "password2", "password3"],
     "X.1": ["0061821225"],
     "X.2": ["0052051346"],
     "X.3": ["0061066909"],
@@ -138,11 +135,10 @@ var users = {
     "X.27": ["0061709128"],
     "X.28": ["0069656032"],
     "X.29": ["0048795755"],
+},
 
-    
-
-
-    // XII MIPA.4//
+"XII_MIPA_4": {
+    "admin": ["password1", "password2", "password3"],
     "X.1": ["0068164671"],
     "X.2": ["0063298322"],
     "X.3": ["0055267522"],
@@ -174,12 +170,11 @@ var users = {
     "X.29": ["0053809062"],
     "X.30": ["0058551725"],
     "X.31": ["0061255267"], 
-    
-    
+},
 
-
-// XII IPS.1//
-    "X.1": ["0065204560"],
+            // Daftar kelas XII lainnya...
+            "XII_IPS_1": {
+                "X.1": ["0065204560"],
     "X.2": ["0054249578"],
     "X.3": ["0053990527"],
     "X.4": ["0067238051"],
@@ -214,11 +209,12 @@ var users = {
     "X.33": ["3066638415"],
     "X.34": ["0051273425"],    
     "X.35": ["0062594840"],
+               
+            },
 
 
-
-    // XII IPS.2//
-    "X.1": ["0069505618"],
+            "XII_IPS_2": {
+                "X.1": ["0069505618"],
     "X.2": ["0065002057"],
     "X.3": ["0041547250"],
     "X.4": ["0069106590"],
@@ -252,28 +248,39 @@ var users = {
     "X.32": ["0062410415"],
     "X.33": ["0063136743"],
     "X.34": ["0053991668"],
-};
+               
+            },
+            // Daftar kelas XII IPS lainnya...
+        };
 
-function changeTypePassword() {
-    var passwordInput = document.getElementById('password');
-    passwordInput.type = passwordInput.type === 'text' ? 'password' : 'text';
-}
+        function changeTypePassword() {
+            var passwordInput = document.getElementById('password');
+            passwordInput.type = passwordInput.type === 'text' ? 'password' : 'text';
+        }
 
-function login() {
-    var password = document.getElementById('password').value;
+        function login() {
+            var password = document.getElementById('password').value;
+            var found = false;
 
-    // Pengecekan apakah kata sandi yang dimasukkan cocok dengan salah satu dari kata sandi yang valid
-    var validPassword = Object.values(users).flat().includes(password);
+            // Pengecekan apakah kata sandi yang dimasukkan cocok dengan salah satu dari kata sandi yang valid
+            for (var key in users) {
+                if (users[key].admin && users[key].admin.includes(password)) {
+                    // Ganti 'https://example.com' dengan URL halaman yang dituju setelah login sukses untuk admin
+                    window.location.href = 'https://suheri77.github.io/KELULUSANSMANBERNAS2024/admin';
+                    found = true;
+                    break;
+                } else if (Object.values(users[key]).flat().includes(password)) {
+                    // Ganti 'https://example.com' dengan URL halaman yang dituju setelah login sukses untuk siswa
+                    window.location.href = 'https://suheri77.github.io/KELULUSANSMANBERNAS2024/';
+                    found = true;
+                    break;
+                }
+            }
 
-    if (validPassword) {
-        // Ganti 'https://example.com' dengan URL halaman yang dituju setelah login sukses
-        window.location.href = 'https://suheri77.github.io/KELULUSANSMANBERNAS2024/';
-    } else {
-        alert('Kata sandi salah!');
-    }
-}
-
-
+            if (!found) {
+                alert('Kata sandi salah!');
+            }
+        }
     </script>
 </body>
 </html>
